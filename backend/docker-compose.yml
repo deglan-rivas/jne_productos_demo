@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  mongodb_jne:
+    image: mongo:8
+    container_name: mongodb_jne
+    ports:
+      - '27019:27017'
+    volumes:
+      - mongo_data_jne:/data/db
+
+volumes:
+  mongo_data_jne:

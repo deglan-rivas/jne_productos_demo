@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: deglanrivas/prueba_jne_productos_backend:latest
+    container_name: fastapi_backend
+    ports:
+      - '8000:8000'
+    env_file:
+      - .env
+    depends_on:
+      - mongodb_jne
+
+  mongodb_jne:
+    image: mongo:8
+    container_name: mongodb_jne
+    ports:
+      - '27019:27017'
+    volumes:
+      - mongo_data_jne:/data/db
+
+volumes:
+  mongo_data_jne:
