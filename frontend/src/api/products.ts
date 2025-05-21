@@ -1,5 +1,22 @@
-const API_URL = `${import.meta.env.VITE_API_URL}/productos`;
-// process.env.REACT_APP_API_URL
+interface Env {
+  VITE_BACKEND_URL?: string;
+  // Puedes añadir otras variables de entorno aquí si las tienes
+}
+
+declare global {
+  interface Window {
+    env?: Env;
+  }
+}
+
+// let backendUrl = import.meta.env.VITE_BACKEND_URL ?? window.env?.VITE_BACKEND_URL ?? "http://localhost:3000";
+let backendUrl = import.meta.env.VITE_BACKEND_URL ?? window.env?.VITE_BACKEND_URL;
+
+// if (window.__ENV__ && window.__ENV__.BACKEND_URL) {
+//   backendUrl = window.__ENV__.BACKEND_URL;
+// }
+
+const API_URL = `${backendUrl}/productos`;
 
 export const fetchProducts = async () => {
   const response = await fetch(API_URL);

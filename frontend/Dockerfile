@@ -5,23 +5,21 @@ COPY package*.json ./
 RUN npm ci
 COPY . .
 RUN npm run build
+# or using pnpm
+# COPY . .
+# RUN corepack enable && corepack prepare pnpm@latest --activate
+# RUN pnpm install
+# RUN pnpm run build
 
 
 
 # Etapa de producción: sirve los archivos estáticos con NGINX
 FROM nginx:1.26-alpine as production
-
-# Copia los archivos estáticos construidos al directorio de Nginx
 COPY --from=builder /app/dist /usr/share/nginx/html
-
-# Opcional: elimina el archivo de configuración por defecto y usa uno propio
-# COPY nginx.conf /etc/nginx/nginx.conf
-
+# COPY ./nginx.conf.template /etc/nginx/conf.d/default.conf.template
+COPY ./entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]
-
-# FROM busybox:1.30 AS runner
-# WORKDIR /app
-# COPY --from=builder /app/dist .
-# CMD ["busybox", "httpd", "-f", "-v", "-p", "8080"]
+# CMD ["nginx", "-g", "daemon off;"]
+# ENTRYPOINT ["/entrypoint.sh"]
+CMD ["/entrypoint.sh"]

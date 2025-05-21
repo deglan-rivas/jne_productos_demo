@@ -5,14 +5,14 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    image: deglanrivas/prueba_jne_productos_frontend:1.0.0
+    image: deglanrivas/prueba_jne_productos_frontend:1.8.0
     container_name: saas_frontend
     ports:
       - "5173:80"
-    # environment:
+    environment:
       #  after running "pnpm run build" in frontend, VITE_BACKEND_URL is hardcoded -> have to timplement .sh file to set env variables
       # - VITE_BACKEND_URL=http://backend:8000  
-      # - VITE_BACKEND_URL=http://localhost:8000
+      - VITE_BACKEND_URL=http://localhost:8000
     depends_on:
       - backend
     networks:
@@ -27,8 +27,9 @@ services:
     ports:
       - "8000:8000"
     environment:
+      # - MONGO_URI=mongodb://localhost:27017
       - MONGO_URI=mongodb://mongodb_jne:27017
-      # - FRONTEND_URL=http://frontend:5173
+      # - FRONTEND_URL=http://frontend:80
       - FRONTEND_URL=http://localhost:5173
     depends_on:
       - mongodb_jne

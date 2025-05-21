@@ -1,0 +1,15 @@
+server {
+    listen 80;
+    server_name localhost; # o el nombre de dominio que uses
+
+    location / {
+        root /usr/share/nginx/html;
+        index index.html index.htm;
+        try_files $uri $uri/ /index.html;
+    }
+
+    location /env.js {
+        default_type application/javascript;
+        return 200 'window.__ENV__ = { BACKEND_URL: "${VITE_BACKEND_URL}" };';
+    }
+}
