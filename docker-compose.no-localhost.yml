@@ -1,4 +1,5 @@
-# version: '3.8'
+# run with: docker-compose -f docker-compose.no-localhost.yml up -d
+# use docker network inspect jne_network to get the IP addresses of the containers
 
 services:
   frontend:
@@ -7,10 +8,8 @@ services:
       dockerfile: Dockerfile
     image: deglanrivas/prueba_jne_productos_frontend:1.9.0
     container_name: saas_frontend
-    ports:
-      - "5173:80"
     environment:
-      - VITE_BACKEND_URL=http://localhost:8000
+      - VITE_BACKEND_URL=http://172.19.0.3:8000
     depends_on:
       - backend
     networks:
@@ -22,11 +21,9 @@ services:
       dockerfile: Dockerfile
     image: deglanrivas/prueba_jne_productos_backend:1.0.0
     container_name: saas_backend
-    ports:
-      - "8000:8000"
     environment:
       - MONGO_URI=mongodb://mongodb_jne:27017
-      - FRONTEND_URL=http://localhost:5173
+      - FRONTEND_URL=http://172.19.0.4
     depends_on:
       - mongodb_jne
     networks:
@@ -35,8 +32,6 @@ services:
   mongodb_jne:
     image: mongo:8
     container_name: mongodb_jne
-    ports:
-      - "27017:27017"
     volumes:
       - mongo_data_jne:/data/db
     networks:
