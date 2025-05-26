@@ -1,7 +1,7 @@
 # Archivos de entorno
 # temporarily disallowed: create .sh file to manage environment variables dinamycally
-# .env
-# .env.local
+.env
+.env.local
 
 # Node.js
 node_modules

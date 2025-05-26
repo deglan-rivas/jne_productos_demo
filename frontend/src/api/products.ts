@@ -1,6 +1,5 @@
 interface Env {
   VITE_BACKEND_URL?: string;
-  // Puedes añadir otras variables de entorno aquí si las tienes
 }
 
 declare global {
@@ -11,10 +10,15 @@ declare global {
 
 // let backendUrl = import.meta.env.VITE_BACKEND_URL ?? window.env?.VITE_BACKEND_URL ?? "http://localhost:3000";
 let backendUrl = import.meta.env.VITE_BACKEND_URL ?? window.env?.VITE_BACKEND_URL;
+// let backendUrl = '/api'
 
 // if (window.__ENV__ && window.__ENV__.BACKEND_URL) {
 //   backendUrl = window.__ENV__.BACKEND_URL;
 // }
+
+if (!backendUrl) {
+  throw new Error("VITE_BACKEND_URL is not defined");
+}
 
 const API_URL = `${backendUrl}/productos`;
 

@@ -7,7 +7,7 @@ from app.utils.calculo import calcular_precio_disponibilidad
 
 router = APIRouter()
 
-@router.post("/")
+@router.post("")
 def crear_producto(producto: ProductoUnion):
     data = jsonable_encoder(producto)
 
@@ -19,7 +19,7 @@ def crear_producto(producto: ProductoUnion):
     # result = coleccion_productos.insert_one(producto)
     return {"id": str(result.inserted_id)}
 
-@router.get("/")
+@router.get("")
 def listar_productos():
     productos = list(coleccion_productos.find())
     for p in productos:

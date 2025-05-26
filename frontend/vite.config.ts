@@ -8,4 +8,16 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  // just for development
+  // server: {
+  //   host: true,
+  //   port: 5173,
+  //   proxy: {
+  //     '/api': {
+  //       target: 'http://saas_backend:8000',
+  //       changeOrigin: false,
+  //       rewrite: (path) => path.replace(/^\/api/, '')
+  //     }
+  //   }
+  // },
 })

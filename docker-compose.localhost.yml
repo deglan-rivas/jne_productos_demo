@@ -4,7 +4,7 @@ services:
   frontend:
     build:
       context: ./frontend
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.multi-stage
     image: deglanrivas/prueba_jne_productos_frontend:1.9.0
     container_name: saas_frontend
     ports:
